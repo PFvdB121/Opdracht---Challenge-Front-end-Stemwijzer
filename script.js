@@ -1,115 +1,170 @@
 var Start = document.getElementById("Start");
+var headLine = document.querySelectorAll("#head>*");
+var Question = document.getElementById("Question");
+var agree = document.createElement("button");
+var disAgree = document.createElement("button");
+var undecided = document.createElement("button");
+var blackBackground = document.getElementsByClassName("w3-black");
+var buttons = document.getElementById("buttons");
+var questionCount = 0;
 Start.addEventListener("click", function(){start()});
+
 function start(){
-	alert("test");
+  blackBackground[0].remove();
+  Start.remove();
+  for (var i = 0; i < headLine.length; i++) {
+    headLine[i].innerText = "";
+  }
+  buttons.appendChild(agree);
+  buttons.appendChild(disAgree);
+  buttons.appendChild(undecided);
+  agree.innerText = "Eens";
+  agree.addEventListener("click", function(){ con(questionCount, "pro")});
+  undecided.innerText = "Geen van beide";
+  undecided.addEventListener("click", function(){ con(questionCount, "none")});
+  disAgree.innerText = "Oneens";
+  disAgree.addEventListener("click", function(){ con(questionCount, "contra")});
+  con(questionCount)
+}
+
+function con(question, value){
+  alert(question)
+  questionCount++
+}
+
+var point = {
+  "VVD": 0,
+  "CDA": 0,
+  "PVV": 0,
+  "D66": 0,
+  "GroenLinks": 0,
+  "SP": 0,
+  "PvdA": 0,
+  "ChristenUnie": 0,
+  "Partij voor de Dieren": 0,
+  "SGP": 0,
+  "DENK": 0,
+  "Forum voor Democratie": 0,
+  "Lokaal in de Kamer": 0,
+  "OndernemersPartij": 0,
+  "VNL": 0,
+  "Nieuwe Wegen": 0,
+  "De Burger Beweging": 0,
+  "Piratenpartij": 0,
+  "Artikel 1": 0,
+  "Libertarische Partij": 0,
+  "50Plus": 0,
+  "Vrijzinnige Partij": 0,
+  "Libertarische Partij": 0,
+  "Niet Stemmers": 0
 }
 
 var parties = [{
-    name: "VVD",
-    secular: true,
-    size: 33,
-    long: "Volkspartij voor Vrijheid en Democratie"
+    "name": "VVD",
+    "secular": true,
+    "size": 33,
+    "long": "Volkspartij voor Vrijheid en Democratie"
   },
   {
-    name: "CDA",
-    secular: false,
-    size: 19,
-    long: "Christen Democratisch Appel"
+    "name": "CDA",
+    "secular": false,
+    "size": 19,
+    "long": "Christen Democratisch Appel"
   },
   {
-    name: "PVV",
-    secular: true,
-    size: 20,
-    long: "Partij voor de Vrijheid"
+    "name": "PVV",
+    "secular": true,
+    "size": 20,
+    "long": "Partij voor de Vrijheid"
   },
   {
-    name: "D66",
-    secular: true,
-    size: 19,
-    long: "Democratie 66"
+    "name": "D66",
+    "secular": true,
+    "size": 19,
+    "long": "Democratie 66"
   },
   {
-    name: "GroenLinks",
-    secular: true,
-    size: 14
+    "name": "GroenLinks",
+    "secular": true,
+    "size": 14
   },
   {
-    name: "SP",
-    secular: true,
-    size: 14,
-    long: "Socialistische Partij"
+    "name": "SP",
+    "secular": true,
+    "size": 14,
+    "long": "Socialistische Partij"
   },
   {
-    name: "PvdA",
-    secular: true,
-    size: 9,
-    long: "Partij van de Arbeid"
+    "name": "PvdA",
+    "secular": true,
+    "size": 9,
+    "long": "Partij van de Arbeid"
   },
   {
-    name: "ChristenUnie",
-    secular: false,
-    size: 5
+    "name": "ChristenUnie",
+    "secular": false,
+    "size": 5
   },
   {
-    name: "Partij voor de Dieren",
-    secular: true,
-    size: 33
+    "name": "Partij voor de Dieren",
+    "secular": true,
+    "size": 33
   },
   {
-    name: "SGP",
-    secular: false,
-    size: 33,
-    long: "Staatkundig Gerefomeerde Partij"
+    "name": "SGP",
+    "secular": false,
+    "size": 33,
+    "long": "Staatkundig Gerefomeerde Partij"
   },
   {
-    name: "DENK",
-    secular: true,
-    size: 3
+    "name": "DENK",
+    "secular": true,
+    "size": 3
   },
   {
-    name: "Forum voor Democratie",
-    secular: true,
-    size: 2
+    "name": "Forum voor Democratie",
+    "secular": true,
+    "size": 2
   },
   {
-    name: "Lokaal in de Kamer",
-    secular: true,
-    size: 0
+    "name": "Lokaal in de Kamer",
+    "secular": true,
+    "size": 0
   },
   {
-    name: "OndernemersPartij",
-    secular: true,
-    size: 0
+    "name": "OndernemersPartij",
+    "secular": true,
+    "size": 0
   },
   {
-    name: "VNL",
-    secular: true,
-    size: 0
+    "name": "VNL",
+    "secular": true,
+    "size": 0
   },
   {
-    name: "Nieuwe Wegen",
-    secular: true,
-    size: 0
+    "name": "Nieuwe Wegen",
+    "secular": true,
+    "size": 0
   },
   {
-    name: "De Burger Beweging",
-    secular: true,
-    size: 0
+    "name": "De Burger Beweging",
+    "secular": true,
+    "size": 0
   },
   {
-    name: "Piratenpartij",
-    secular: true,
-    size: 0
+    "name": "Piratenpartij",
+    "secular": true,
+    "size": 0
   },
   {
-    name: "Artikel 1",
-    secular: true,
-    size: 0
+    "name": "Artikel 1",
+    "secular": true,
+    "size": 0
   },
   {
-    name: "Libertarische Partij",
-    secular: true,
-    size: 0
+    "name": "Libertarische Partij",
+    "secular": true,
+    "size": 0
   },
   {
     "name": "50Plus",
