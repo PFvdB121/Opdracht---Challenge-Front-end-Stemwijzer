@@ -1,37 +1,3 @@
-var Start = document.getElementById("Start");
-var headLine = document.querySelectorAll("#head>*");
-var Question = document.getElementById("Question");
-var agree = document.createElement("button");
-var disAgree = document.createElement("button");
-var undecided = document.createElement("button");
-var blackBackground = document.getElementsByClassName("w3-black");
-var buttons = document.getElementById("buttons");
-var questionCount = 0;
-Start.addEventListener("click", function(){start()});
-
-function start(){
-  blackBackground[0].remove();
-  Start.remove();
-  for (var i = 0; i < headLine.length; i++) {
-    headLine[i].innerText = "";
-  }
-  buttons.appendChild(agree);
-  buttons.appendChild(disAgree);
-  buttons.appendChild(undecided);
-  agree.innerText = "Eens";
-  agree.addEventListener("click", function(){ con(questionCount, "pro")});
-  undecided.innerText = "Geen van beide";
-  undecided.addEventListener("click", function(){ con(questionCount, "none")});
-  disAgree.innerText = "Oneens";
-  disAgree.addEventListener("click", function(){ con(questionCount, "contra")});
-  con(questionCount)
-}
-
-function con(question, value){
-  alert(question)
-  questionCount++
-}
-
 var point = {
   "VVD": 0,
   "CDA": 0,
@@ -3790,3 +3756,138 @@ var subjects = [{
     ]
   }
 ];
+
+var keys;
+var values;
+var sumV;
+
+var Start = document.getElementById("Start");
+var headLine = document.querySelectorAll("#head>*");
+var checkingOut;
+var titleBlue;
+var titleBlack;
+let arrayNum;
+var goingOn = document.createElement("button");
+var agree = document.createElement("button");
+var disAgree = document.createElement("button");
+var undecided = document.createElement("button");
+var backwards = document.createElement("button");
+var under = document.getElementById("under");
+var buttons = document.getElementById("buttons");
+var checkbox;
+var important = document.getElementsByClassName("important");
+var label;
+var selPar = [];
+var importance = [];
+for (var i = 0; i < subjects.length; i++) {
+  importance.push({"title":subjects[i]["title"], "parties":[]});
+}
+var questionCount = 0;
+Start.addEventListener("click", function(){start()});
+
+function start(){
+  under.style.display = "none";;
+  Start.style.display = "none";
+  titleBlue = headLine[0].removeChild(document.getElementById("titleBlue"));
+  titleBlack = headLine[0].removeChild(document.getElementById("titleBlack"));
+  for (var i = 1; i < headLine.length; i++) {
+    headLine[i].innerText = "";
+  }
+  buttons.appendChild(backwards);
+  buttons.appendChild(agree);
+  buttons.appendChild(disAgree);
+  buttons.appendChild(undecided);
+  backwards.innerText = "terug";
+  backwards.addEventListener("click", function(){ con(questionCount, "backwards")});
+  agree.innerText = "Eens";
+  agree.addEventListener("click", function(){ con(questionCount, "pro")});
+  undecided.innerText = "Geen van beide";
+  undecided.addEventListener("click", function(){ con(questionCount, "none")});
+  disAgree.innerText = "Oneens";
+  disAgree.addEventListener("click", function(){ con(questionCount, "contra")});
+  con(questionCount)
+}
+
+function con(question, value = null){
+  if (question == 0 && value == "backwards"){
+    startScreen();
+  }
+  else{
+    if (value != null) {
+      questionCount = points(questionCount, value);
+    }
+    if (questionCount < subjects.length) {
+      headLine[0].innerText = `${questionCount + 1}. ${subjects[questionCount]["title"]}`;
+      headLine[1].innerText = subjects[questionCount]["statement"];
+    }
+    else if (questionCount == subjects.length) {
+      under.style.display = "block";
+      under.innerText = "";
+      headLine[0].innerText = "Zijn er onderwerpen die u extra belangrijk vindt?"
+      headLine[1].innerText = "Aangevinkte stellingen tellen extra mee bij het berekenen van het resultaat.";
+      disAgree.style.display = "none";
+      undecided.style.display = "none";
+      agree.style.display = "none";
+      buttons.appendChild(goingOn);
+      goingOn.innerText = "Ga verder"
+      goingOn.addEventListener("click", matches);
+      for (var i = 0; i < importance.length; i++) {
+        checkbox = document.createElement("input");
+        under.appendChild(checkbox);
+        checkbox.id = importance[i]["title"];
+        checkbox.type = "checkbox";
+        checkbox.className = "important";
+        label = document.createElement("label");
+        under.appendChild(label);
+        label.for = importance[i]["title"];
+        label.innerText = importance[i]["title"];
+      }
+    }
+  }
+}
+function matches(){
+  checkImportance();
+}
+
+function sortingArray(){
+  arrayNum = point.length;
+}
+
+function checkImportance(){
+  for(var i = 0; i < importance.length; i++){
+    checkingOut = document.getElementById(importance[i]["title"]);
+    if (checkingOut.checked == true){
+      countingPoints(2, i);
+    }
+    else{
+      countingPoints(1, i);
+    }
+  }
+}
+
+function countingPoints(countingUp, index){
+  for (var i = 0; i < importance[index]["parties"].length; i++) {
+    point[importance[index]["parties"][i]] += countingUp;
+  }
+}
+
+function points(question, value){
+  if (value != "backwards"){
+    selPar = subjects[question]["parties"].filter(function(x){return x.position == value});
+    for (var i = 0; i < selPar.length; i++) {
+      importance[question]["parties"].push(selPar[i]["name"]);
+    }
+    question++;
+  }
+  else if (question > 0){
+    question--;
+    importance[question]["parties"] = [];
+  }
+  return question;
+}
+
+function startScreen(){
+  headLine[0].innerText = "";
+  headLine[0].appendChild(titleBlue);
+  headLine[0].appendChild(titleBlack);
+}

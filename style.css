@@ -8,12 +8,13 @@ body{
 	background-repeat: no-repeat;
 	background-size: 100%, 100%;
 }
-.voting{
-	margin: 0 auto;
-	display: block;
-	width: 80%;
-}
 
 .container{
-	width:  50vw;
+	width:  67vw;
+}
+.startHead{
+	width: 60%;
+}
+.voting{
+	padding:  5vh 2vw;
 }
