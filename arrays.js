@@ -1,153 +1,156 @@
+var point = {
+  "VVD": 0,
+  "CDA": 0,
+  "PVV": 0,
+  "D66": 0,
+  "GroenLinks": 0,
+  "SP": 0,
+  "PvdA": 0,
+  "ChristenUnie": 0,
+  "Partij voor de Dieren": 0,
+  "SGP": 0,
+  "DENK": 0,
+  "Forum voor Democratie": 0,
+  "Lokaal in de Kamer": 0,
+  "OndernemersPartij": 0,
+  "VNL": 0,
+  "Nieuwe Wegen": 0,
+  "De Burger Beweging": 0,
+  "Piratenpartij": 0,
+  "Artikel 1": 0,
+  "Libertarische Partij": 0,
+  "50Plus": 0,
+  "Vrijzinnige Partij": 0,
+  "Libertarische Partij": 0,
+  "Niet Stemmers": 0
+}
+
 var parties = [{
     "name": "VVD",
     "secular": true,
     "size": 33,
-    "long": "Volkspartij voor Vrijheid en Democratie",
-    "points": 0
+    "long": "Volkspartij voor Vrijheid en Democratie"
   },
   {
     "name": "CDA",
     "secular": false,
     "size": 19,
-    "long": "Christen Democratisch Appel",
-    "points": 0
+    "long": "Christen Democratisch Appel"
   },
   {
     "name": "PVV",
     "secular": true,
     "size": 20,
-    "long": "Partij voor de Vrijheid",
-    "points": 0
+    "long": "Partij voor de Vrijheid"
   },
   {
     "name": "D66",
     "secular": true,
     "size": 19,
-    "long": "Democratie 66",
-    "points": 0
+    "long": "Democratie 66"
   },
   {
     "name": "GroenLinks",
     "secular": true,
-    "size": 14,
-    "points": 0
+    "size": 14
   },
   {
     "name": "SP",
     "secular": true,
     "size": 14,
-    "long": "Socialistische Partij",
-    "points": 0
+    "long": "Socialistische Partij"
   },
   {
     "name": "PvdA",
     "secular": true,
     "size": 9,
-    "long": "Partij van de Arbeid",
-    "points": 0
+    "long": "Partij van de Arbeid"
   },
   {
     "name": "ChristenUnie",
     "secular": false,
-    "size": 5,
-    "points": 0
+    "size": 5
   },
   {
     "name": "Partij voor de Dieren",
     "secular": true,
-    "size": 33,
-    "points": 0
+    "size": 33
   },
   {
     "name": "SGP",
     "secular": false,
     "size": 33,
-    "long": "Staatkundig Gerefomeerde Partij",
-    "points": 0
+    "long": "Staatkundig Gerefomeerde Partij"
   },
   {
     "name": "DENK",
     "secular": true,
-    "size": 3,
-    "points": 0
+    "size": 3
   },
   {
     "name": "Forum voor Democratie",
     "secular": true,
-    "size": 2,
-    "points": 0
+    "size": 2
   },
   {
     "name": "Lokaal in de Kamer",
     "secular": true,
-    "size": 0,
-    "points": 0
+    "size": 0
   },
   {
     "name": "OndernemersPartij",
     "secular": true,
-    "size": 0,
-    "points": 0
+    "size": 0
   },
   {
     "name": "VNL",
     "secular": true,
-    "size": 0,
-    "points": 0
+    "size": 0
   },
   {
     "name": "Nieuwe Wegen",
     "secular": true,
-    "size": 0,
-    "points": 0
+    "size": 0
   },
   {
     "name": "De Burger Beweging",
     "secular": true,
-    "size": 0,
-    "points": 0
+    "size": 0
   },
   {
     "name": "Piratenpartij",
     "secular": true,
-    "size": 0,
-    "points": 0
+    "size": 0
   },
   {
     "name": "Artikel 1",
     "secular": true,
-    "size": 0,
-    "points": 0
+    "size": 0
   },
   {
     "name": "Libertarische Partij",
     "secular": true,
-    "size": 0,
-    "points": 0
+    "size": 0
   },
   {
     "name": "50Plus",
     "secular": true,
-    "size": 2,
-    "points": 0
+    "size": 2
   },
   {
     "name": "Vrijzinnige Partij",
     "secular": true,
-    "size": 0,
-    "points": 0
+    "size": 0
   },
   {
     "name": "Libertarische Partij",
     "secular": true,
-    "size": 0,
-    "points": 0
+    "size": 0
   },
   {
     "name": "Niet Stemmers",
     "secular": true,
-    "size": 0,
-    "points": 0
+    "size": 0
   }
 
 ];
@@ -3753,220 +3756,3 @@ var subjects = [{
     ]
   }
 ];
-
-var keys;
-var values;
-var sumV = 0;
-
-var containing = document.createElement("div");
-var container = document.getElementById("container");
-var Start = document.getElementById("Start");
-var starting = document.getElementById("starting");
-var headLine = document.querySelectorAll("#head>*");
-var head = document.getElementById("head");
-var list;
-var listPart;
-var barVote;
-var barVoteProgress;
-var checkingOut;
-var titleBlue = document.getElementById("titleBlue");
-var titleBlack = document.getElementById("titleBlack");
-let arrayNum;
-var bar = document.createElement("div");
-bar.id = "bar";
-bar.className = "w3-blue";
-var h4 = document.createElement("h4");
-h4.className = "w3-text-blue bold";
-var arrow = document.createElement("i");
-arrow.className = "fas fa-arrow-left w3-round-xxlarge w3-text-black";
-var goingOn = document.createElement("button");
-goingOn.id = "goingOn";
-goingOn.addEventListener("click", matches);
-var agree = document.createElement("button");
-var disAgree = document.createElement("button");
-var undecided = document.createElement("button");
-var skip = document.createElement("button");
-var backwards = document.createElement("button");
-var marker;
-backwards.id = "backwards";
-var under = null;
-var buttons = document.createElement("section");
-var top = document.getElementById("top");
-var checkbox;
-var important = document.getElementsByClassName("important");
-var label;
-var selPar = [];
-var importance = [];
-for (var i = 0; i < subjects.length; i++) {
-  importance.push({"title":subjects[i]["title"], "parties":[]});
-}
-var questionCount = 0;
-Start.addEventListener("click", function(){start()});
-
-function start(){
-  titleBlue.remove();
-  titleBlack.remove();
-  head.remove();
-  container.appendChild(containing);
-  containing.appendChild(head);
-  headLine[2].innerText = "";
-  starting.style.display = "none";
-  document.body.style.backgroundImage = "none";
-  document.body.insertBefore(bar, container);
-  document.body.insertBefore(h4, container);
-  h4.appendChild(backwards);
-  backwards.appendChild(arrow);
-  h4.appendChild(titleBlue);
-  h4.appendChild(titleBlack);
-  containing.appendChild(buttons);
-  buttons.appendChild(agree);
-  buttons.appendChild(disAgree);
-  buttons.appendChild(undecided);
-  buttons.appendChild(skip);
-  backwards.addEventListener("click", function(){ con(questionCount, "backwards")});
-  agree.innerText = "Eens";
-  agree.addEventListener("click", function(){ con(questionCount, "pro")});
-  undecided.innerText = "Geen van beide";
-  undecided.addEventListener("click", function(){ con(questionCount, "none")});
-  disAgree.innerText = "Oneens";
-  disAgree.addEventListener("click", function(){ con(questionCount, "contra")});
-  skip.innerText = "Deze vraag overslaan";
-  skip.addEventListener("click", function(){ con(questionCount)});
-  con(questionCount, "start");
-}
-
-function con(question, value = null){
-  if (question == 0 && value == "backwards"){
-    startScreen();
-  }
-  else{
-    if (value != "start") {
-      questionCount = points(questionCount, value);
-    }
-    bar.style.width = `${((questionCount + 1) / (subjects.length + 2)) * 100}vw`;
-    if (questionCount < subjects.length) {
-      headLine[0].innerText = `${questionCount + 1}. ${subjects[questionCount]["title"]}`;
-      headLine[1].innerText = subjects[questionCount]["statement"];
-    }
-    else if (questionCount >= subjects.length) {
-      if (under == null){
-        under = document.createElement("div");
-        under.id = "underQuestions";
-        under.style.backgroundColor = "Grey";
-        containing.appendChild(under);
-      }
-      under.innerText = "";
-      headLine[0].innerText = "Zijn er onderwerpen die u extra belangrijk vindt?"
-      headLine[1].innerText = "Aangevinkte stellingen tellen extra mee bij het berekenen van het resultaat.";
-      disAgree.style.display = "none";
-      undecided.style.display = "none";
-      agree.style.display = "none";
-      buttons.appendChild(goingOn);
-      goingOn.innerText = "Ga verder"
-      for (var i = 0; i < importance.length; i++) {
-        marker = document.createElement("div");
-        marker.style.display = "inline-block";
-        marker.style.width = "22vw";
-        marker.className = "w3-border-bottom";
-        under.appendChild(marker);
-        checkbox = document.createElement("input");
-        marker.appendChild(checkbox);
-        checkbox.id = importance[i]["title"];
-        checkbox.type = "checkbox";
-        checkbox.className = "important";
-        label = document.createElement("label");
-        marker.appendChild(label);
-        label.for = importance[i]["title"];
-        label.innerText = importance[i]["title"];
-      }
-    }
-  }
-}
-function matches(){
-  checkImportance();
-  goingOn.remove();
-  questionCount++;
-  list = document.createElement("ul");
-  under.appendChild(list);
-}
-
-function postingPoints(){
-  for (var i = 0; i < parties.length; i--) {
-    parties[FIP(importance[index]["parties"][i])] = 0;
-  }
-}
-
-function checkImportance(){
-  for(var i = 0; i < importance.length; i++){
-    checkingOut = document.getElementById(importance[i]["title"]);
-    if (checkingOut.checked == true){
-      countingPoints(2, i);
-    }
-    else{
-      countingPoints(1, i);
-    }
-  }
-}
-
-function countingPoints(countingUp, index){
-  for (var i = 0; i < importance[index]["parties"].length; i++) {
-    parties[FIP(importance[index]["parties"][i])]["points"] += countingUp;
-  }
-}
-
-function points(question, value){
-  if (value != "backwards"){
-    if (value != null) {
-      selPar = subjects[question]["parties"].filter(function(x){return x.position == value});
-      for (var i = 0; i < selPar.length; i++) {
-        importance[question]["parties"].push(selPar[i]["name"]);
-      }
-    }
-    question++;
-  }
-  else if (question > 0){
-    if (question >= subjects.length) {
-      under.innerText = "";
-      if (question == subjects.length) {
-        document.getElementById("underQuestions").remove();
-        document.getElementById("goingOn").remove();
-        under = null
-        agree.style.display="inline-block";
-        disAgree.style.display="inline-block";
-        undecided.style.display="inline-block";
-      }
-    }
-    question--;
-    if (question < subjects.length) {
-      importance[question]["parties"] = [];
-    }
-  }
-  return question;
-}
-
-function startScreen(){
-  titleBlue.remove();
-  titleBlack.remove();
-  bar.remove();
-  h4.remove();
-  head.remove();
-  document.getElementById("top").insertBefore(head, document.getElementById("buttons"));
-  document.body.style.backgroundImage = 'url("images/stemwijzer.png")';
-  containing.remove();
-  starting.style.display = "block";
-  headLine[0].innerText = "";
-  headLine[0].appendChild(titleBlue);
-  headLine[0].appendChild(titleBlack);
-  headLine[1].innerText = "Tweede Kamerverkiezingen 2017";
-  headLine[2].innerText = "Test je politieke voorkeur aan de hand van 30 stellingen";
-}
-
-function FIP(NOP){
-  return parties.findIndex(function(party){
-    return party.name == NOP
-  })
-}
-
-function FIMP(NUM){
-
-}

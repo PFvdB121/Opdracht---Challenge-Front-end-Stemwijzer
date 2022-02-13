@@ -9,21 +9,31 @@
 	<script src="https://kit.fontawesome.com/b36790a141.js" crossorigin="anonymous"></script>
 </head>
 <body>
-	<div class="w3-display-topmiddle w3-section container">
-		<div class="voting startHead w3-white">
-			<header id="head">
-				<h1 class="w3-text-blue"><span id="titleBlue">Stem</span><span class="w3-text-black" id="titleBlack">Wijzer</span></h1>
-				<h3>Tweede Kamerverkiezingen 2017</h3>
-				<p>Test je politieke voorkeur aan de hand van 30 stellingen</p>
-			</header>
-			<section id="buttons">
-				<button id="Start" class="w3-blue w3-text-white">Start</button>
-			</section>
+	<!--<div id="bar" class="w3-blue"></div>
+	<h4><button id="backwards"><i class="fas fa-arrow-left w3-round-xxlarge"></i></button><span class="w3-text-blue"><span id="titleBlue">Stem</span><span class="w3-text-black" id="titleBlack">Wijzer</span></span></h4>-->
+	<div class="w3-display-topmiddle w3-section" id="container">
+		<div id="starting">
+			<div class="voting startHead w3-white w3-round-xlarge" id="top">
+				<header id="head">
+					<h1 class="w3-text-blue bold"><span id="titleBlue">Stem</span><span class="w3-text-black" id="titleBlack">Wijzer</span></h1>
+					<h3 class="bold">Tweede Kamerverkiezingen 2017</h3>
+					<p>Test je politieke voorkeur aan de hand van 30 stellingen</p>
+				</header>
+				<section id="buttons">
+					<button id="Start" class="w3-blue w3-text-white w3-border-0 w3-round-large">Start</button>
+				</section>
+			</div>
+			<div class="w3-text-white w3-round-xlarge" id="under">
+				<section class="bottom">
+					<p>Bij StemWijzer nemen we privacy en het kiesrecht zeer serieus. Je krijgt straks eerst alle stellingen te zien. Daarna vragen we je toestemming om bepaalde gegevens te delen. Dat is niet verplicht. Ook zonder akkoord te gaan, kun je de uitslag bekijken. Verder gebruiken we Google Analytics om de StemWijzer te verbeteren. We hebben Google Analytics op een privacyvriendelijke manier ingesteld.</p>
+				</section>
+				<footer class="bottom">
+					Stemwijzer &reg; 2017. Alle rechten voorbehouden.
+				</footer>
+			</div>
 		</div>
-		<section class="w3-black voting" id="under">
-			Bij StemWijzer nemen we privacy en het kiesrecht zeer serieus. Je krijgt straks eerst alle stellingen te zien. Daarna vragen we je toestemming om bepaalde gegevens te delen. Dat is niet verplicht. Ook zonder akkoord te gaan, kun je de uitslag bekijken. Verder gebruiken we Google Analytics om de StemWijzer te verbeteren. We hebben Google Analytics op een privacyvriendelijke manier ingesteld.
-		</section>
 	</div>
+	<script type="text/javascript" src="arrays.js"></script>
 	<script type="text/javascript" src="script.js"></script>
 </body>
 </html>
