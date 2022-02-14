@@ -3754,53 +3754,101 @@ var subjects = [{
   }
 ];
 
-var keys;
-var values;
-var sumV = 0;
 
-var containing = document.createElement("div");
-var container = document.getElementById("container");
-var Start = document.getElementById("Start");
-var starting = document.getElementById("starting");
-var headLine = document.querySelectorAll("#head>*");
-var head = document.getElementById("head");
-var list;
-var listPart;
-var barVote;
-var barVoteProgress;
-var checkingOut;
-var titleBlue = document.getElementById("titleBlue");
-var titleBlack = document.getElementById("titleBlack");
-let arrayNum;
+
+var array;
+var colBut = ["w3-green w3-text-black", "w3-red w3-text-black", "w3-yellow", "w3-light-grey"];
+var importance = [];
+for (var i = 0; i < subjects.length; i++) {
+  importance.push({"title":subjects[i]["title"], "opinion": "test", "show": false});
+}
+var selPar = [];
+var showing = [{"title": "Toon alleen grote partijen", "show": false}, {"title": "Toon alleen seculiere partijen", "show": false}]
+
+
+
+var agree = document.createElement("button");
+agree.innerText = "Eens";
+agree.addEventListener("click", function(){ con(questionCount, "pro")});
+agree.value = "pro";
+agree.style.backgroundColor = colBut[0];
+
+var arrow = document.createElement("i");
+arrow.className = "fas fa-arrow-left w3-round-xxlarge w3-text-black";
+
+var backwards = document.createElement("button");
+backwards.addEventListener("click", function(){ con(questionCount, "backwards")});
+backwards.id = "backwards";
+backwards.appendChild(arrow);
+
 var bar = document.createElement("div");
 bar.id = "bar";
 bar.className = "w3-blue";
+
+var BG = document.getElementById("BG");
+
+var buttons = document.createElement("section");
+buttons.id = "buttonsP";
+
+var containing = document.createElement("div");
+var container = document.getElementById("container")
+
+var disAgree = document.createElement("button");
+disAgree.innerText = "Oneens";
+disAgree.addEventListener("click", function(){ con(questionCount, "contra")});
+disAgree.value = "contra";
+disAgree.style.backgroundColor = colBut[1];
+
 var h4 = document.createElement("h4");
 h4.className = "w3-text-blue bold";
-var arrow = document.createElement("i");
-arrow.className = "fas fa-arrow-left w3-round-xxlarge w3-text-black";
-var goingOn = document.createElement("button");
-goingOn.id = "goingOn";
-goingOn.addEventListener("click", matches);
-var agree = document.createElement("button");
-var disAgree = document.createElement("button");
-var undecided = document.createElement("button");
-var skip = document.createElement("button");
-var backwards = document.createElement("button");
-var marker;
-backwards.id = "backwards";
-var under = null;
-var buttons = document.createElement("section");
-var top = document.getElementById("top");
-var checkbox;
+
+var head = document.getElementById("head");
+var headLine = document.querySelectorAll("#head>*");
+
 var important = document.getElementsByClassName("important");
+
+var skip = document.createElement("button");
+skip.addEventListener("click", function(){ con(questionCount, null)});
+skip.value = null;
+skip.style.backgroundColor = colBut[3];
+
+var Start = document.getElementById("Start");
+var starting = document.getElementById("starting");
+
+var titleBlue = document.getElementById("titleBlue");
+var titleBlack = document.getElementById("titleBlack");
+
+var top = document.getElementById("top");
+
+var undecided = document.createElement("button");
+undecided.innerText = "Geen van beide";
+undecided.addEventListener("click", function(){ con(questionCount, "none")});
+undecided.value = "none";
+undecided.style.backgroundColor = colBut[2];
+
+
+
+let arrayNum;
+var barVote;
+var barVoteProgress;
+const bigParty = 15;
+var buttonsP;
+var checkbox;
+var checkingOut;
+var goingOn = null;
+var keys;
 var label;
-var selPar = [];
-var importance = [];
-for (var i = 0; i < subjects.length; i++) {
-  importance.push({"title":subjects[i]["title"], "parties":[]});
-}
+var list;
+var listPart;
+var marker;
+var maxPar;
 var questionCount = 0;
+var sumV = 0;
+var under = null;
+var values;
+
+
+
 Start.addEventListener("click", function(){start()});
 
 function start(){
@@ -3811,11 +3859,10 @@ function start(){
   containing.appendChild(head);
   headLine[2].innerText = "";
   starting.style.display = "none";
-  document.body.style.backgroundImage = "none";
+  BG.style.backgroundImage = "none";
   document.body.insertBefore(bar, container);
   document.body.insertBefore(h4, container);
   h4.appendChild(backwards);
-  backwards.appendChild(arrow);
   h4.appendChild(titleBlue);
   h4.appendChild(titleBlack);
   containing.appendChild(buttons);
@@ -3823,15 +3870,8 @@ function start(){
   buttons.appendChild(disAgree);
   buttons.appendChild(undecided);
   buttons.appendChild(skip);
-  backwards.addEventListener("click", function(){ con(questionCount, "backwards")});
-  agree.innerText = "Eens";
-  agree.addEventListener("click", function(){ con(questionCount, "pro")});
-  undecided.innerText = "Geen van beide";
-  undecided.addEventListener("click", function(){ con(questionCount, "none")});
-  disAgree.innerText = "Oneens";
-  disAgree.addEventListener("click", function(){ con(questionCount, "contra")});
-  skip.innerText = "Deze vraag overslaan";
-  skip.addEventListener("click", function(){ con(questionCount)});
+  buttonsP = document.querySelectorAll("#buttonsP>*");
+  coloringB(0);
   con(questionCount, "start");
 }
 
@@ -3843,27 +3883,54 @@ function con(question, value = null){
     if (value != "start") {
       questionCount = points(questionCount, value);
     }
-    bar.style.width = `${((questionCount + 1) / (subjects.length + 2)) * 100}vw`;
+    bar.style.width = `${((questionCount + 1) / (subjects.length + 3)) * 100}vw`;
     if (questionCount < subjects.length) {
       headLine[0].innerText = `${questionCount + 1}. ${subjects[questionCount]["title"]}`;
       headLine[1].innerText = subjects[questionCount]["statement"];
+      skip.innerText = "Deze vraag overslaan";
     }
-    else if (questionCount >= subjects.length) {
+    else if (questionCount >= subjects.length){
       if (under == null){
         under = document.createElement("div");
         under.id = "underQuestions";
         under.style.backgroundColor = "Grey";
         containing.appendChild(under);
       }
+      if (questionCount == subjects.length) {
+        if (value == "backwards") {
+          goingOn.remove();
+          goingOn = null;
+        }
+        array = showing;
+        headLine[0].innerText = "Welke partijen wil je meenemen in het resultaat?"
+        headLine[1].innerText = "Kies of alleen de grote, alleen de seculiere, of alleen de grote seculiere parijen getoond worden";
+        agree.style.display = "none";
+        disAgree.style.display = "none";
+        undecided.style.display = "none";
+        skip.style.display = "inline-block";
+        skip.innerText = "volgende stap";
+      }
+      else if (questionCount == subjects.length + 1){
+        if (value != "backwards") {
+          for (var i = 0; i < showing.length; i++) {
+            checkingOut = document.getElementById(showing[i]["title"]);
+            console.log(checkingOut.checked);
+            showing[FISP(checkingOut.value)]["show"] = checkingOut.checked;
+          }
+        }
+        skip.style.display = "none";
+        headLine[0].innerText = "Zijn er onderwerpen die u extra belangrijk vindt?"
+        headLine[1].innerText = "Aangevinkte stellingen tellen extra mee bij het berekenen van het resultaat.";
+        goingOn = document.createElement("button");
+        goingOn.id = "goingOn";
+        goingOn.addEventListener("click", matches);
+        goingOn.innerText = "volgende stap"
+        goingOn.className = colBut[3];
+        buttons.appendChild(goingOn);
+        array = importance;
+      }
       under.innerText = "";
-      headLine[0].innerText = "Zijn er onderwerpen die u extra belangrijk vindt?"
-      headLine[1].innerText = "Aangevinkte stellingen tellen extra mee bij het berekenen van het resultaat.";
-      disAgree.style.display = "none";
-      undecided.style.display = "none";
-      agree.style.display = "none";
-      buttons.appendChild(goingOn);
-      goingOn.innerText = "Ga verder"
-      for (var i = 0; i < importance.length; i++) {
+      for (var i = 0; i < array.length; i++) {
         marker = document.createElement("div");
         marker.style.display = "inline-block";
         marker.style.width = "22vw";
@@ -3871,34 +3938,55 @@ function con(question, value = null){
         under.appendChild(marker);
         checkbox = document.createElement("input");
         marker.appendChild(checkbox);
-        checkbox.id = importance[i]["title"];
+        checkbox.id = array[i]["title"];
         checkbox.type = "checkbox";
         checkbox.className = "important";
+        checkbox.value = array[i]["title"];
+        checkbox.checked = array[i]["show"];
         label = document.createElement("label");
         marker.appendChild(label);
-        label.for = importance[i]["title"];
-        label.innerText = importance[i]["title"];
+        label.for = array[i]["title"];
+        label.innerText = array[i]["title"];
       }
     }
   }
 }
+
 function matches(){
+  sumV = 0;
+  bar.style.width = "100vw";
   checkImportance();
   goingOn.remove();
   questionCount++;
+  under.innerText = "";
   list = document.createElement("ul");
+  list.className = "w3-ul"
   under.appendChild(list);
-}
-
-function postingPoints(){
-  for (var i = 0; i < parties.length; i--) {
-    parties[FIP(importance[index]["parties"][i])] = 0;
+  selPar = parties;
+  if (showing[0]["show"] == true) {
+    selPar = selPar.filter(function(x){return x.size >= bigParty})
+  }
+  if (showing[1]["show"] == true) {
+    selPar = selPar.filter(function(x){return x.secular == true})
+  }
+  for (var i = 0; i < selPar.length; i++) {
+    listPart = document.createElement("li");
+    list.appendChild(listPart);
+    maxPar = selPar.findIndex(function(bigPar){
+      return bigPar.points == Math.max.apply(Math, selPar.map(function(x){ return x.points; }));
+    })
+    listPart.innerText = `${selPar[maxPar]["name"]}: ${(selPar[maxPar]["points"] / sumV * 100).toFixed(2)}%`;
+    selPar[maxPar]["points"] = -1;
+  }
+  for (var i = 0; i < parties.length; i++) {
+    parties[i]["points"] = 0;
   }
 }
 
 function checkImportance(){
   for(var i = 0; i < importance.length; i++){
     checkingOut = document.getElementById(importance[i]["title"]);
+    importance[i]["show"] = checkingOut.checked;
     if (checkingOut.checked == true){
       countingPoints(2, i);
     }
@@ -3909,27 +3997,31 @@ function checkImportance(){
 }
 
 function countingPoints(countingUp, index){
-  for (var i = 0; i < importance[index]["parties"].length; i++) {
-    parties[FIP(importance[index]["parties"][i])]["points"] += countingUp;
+  sumV += countingUp;
+  selPar = subjects[FTS(importance[index]["title"])]["parties"].filter(function(x){return x.position == importance[index]["opinion"]});
+  for (var i = 0; i < selPar.length; i++) {
+    parties[FIP(selPar[i]["name"])]["points"] += countingUp;
   }
 }
 
 function points(question, value){
   if (value != "backwards"){
     if (value != null) {
-      selPar = subjects[question]["parties"].filter(function(x){return x.position == value});
-      for (var i = 0; i < selPar.length; i++) {
-        importance[question]["parties"].push(selPar[i]["name"]);
-      }
+      importance[question]["opinion"] = value;
     }
     question++;
+    if (question < subjects.length) {
+      coloringB(question, value)
+    }
   }
   else if (question > 0){
     if (question >= subjects.length) {
       under.innerText = "";
       if (question == subjects.length) {
         document.getElementById("underQuestions").remove();
-        document.getElementById("goingOn").remove();
+        if (goingOn != null) {
+          document.getElementById("goingOn").remove();
+        }
         under = null
         agree.style.display="inline-block";
         disAgree.style.display="inline-block";
@@ -3937,11 +4029,23 @@ function points(question, value){
       }
     }
     question--;
-    if (question < subjects.length) {
-      importance[question]["parties"] = [];
+    if (question < subjects.length){
+      coloringB(question, value)
     }
   }
   return question;
+}
+
+function coloringB(question, value = "test"){
+  for (var i = 0; i < buttonsP.length; i++) {
+    console.log(value);
+    if (`${buttonsP[i].value}` == `${importance[question]["opinion"]}`) {
+      buttonsP[i].className = "w3-blue w3-text-black";
+    }
+    else{
+      buttonsP[i].className = colBut[i];
+    }
+  }
 }
 
 function startScreen(){
@@ -3951,7 +4055,7 @@ function startScreen(){
   h4.remove();
   head.remove();
   document.getElementById("top").insertBefore(head, document.getElementById("buttons"));
-  document.body.style.backgroundImage = 'url("images/stemwijzer.png")';
+  BG.style.backgroundImage = 'url("images/stemwijzer.png")';
   containing.remove();
   starting.style.display = "block";
   headLine[0].innerText = "";
@@ -3967,6 +4071,14 @@ function FIP(NOP){
   })
 }
 
-function FIMP(NUM){
+function FTS(TITL){
+  return subjects.findIndex(function(titleQ){
+    return titleQ.title == TITL;
+  })
+}
 
+function FISP(SP){
+  return showing.findIndex(function(titleS){
+    return titleS.title == SP;
+  })
 }
