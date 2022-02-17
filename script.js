@@ -3796,6 +3796,8 @@ agree.value = "pro";
 
 var agreeOp = document.createElement("button");
 agreeOp.innerText = "meningen eens";
+agreeOp.className = colBut[0];
+agreeOp.style.width = "100%";
 agreeOp.addEventListener("click", function(){ OP(questionCount, "pro")});
 
 var arrowL = document.createElement("i");
@@ -3816,9 +3818,9 @@ var buttons = document.createElement("div");
 buttons.id = "buttonsP";
 
 var conButOp = document.createElement("span");
-conButOp.style.margin = "3vh";
 conButOp.style.width = "10vw";
-conButOp.className = "w3-display-topright";
+//conButOp.style.marginBottom = "10vh";
+conButOp.className = "w3-display-bottomleft";
 
 var containing = document.createElement("div");
 containing.style.height = "70vh";
@@ -3831,6 +3833,8 @@ disAgree.value = "contra";
 
 var disAgreeOp = document.createElement("button");
 disAgreeOp.innerText = "meningen oneens";
+disAgreeOp.className = colBut[1];
+disAgreeOp.style.width = "100%";
 disAgreeOp.addEventListener("click", function(){ OP(questionCount, "contra")});
 
 var h4 = document.createElement("h4");
@@ -3860,6 +3864,8 @@ undecided.value = "none";
 
 var undecidedOp = document.createElement("button");
 undecidedOp.innerText = "meningen geen van beide";
+undecidedOp.className = colBut[2];
+undecidedOp.style.width = "100%";
 undecidedOp.addEventListener("click", function(){ OP(questionCount, "none")});
 
 var array;
@@ -3912,7 +3918,7 @@ function start(){
   BG.style.backgroundImage = "none";
   document.body.insertBefore(bar, container);
   document.body.insertBefore(h4, container);
-  document.body.insertBefore(conButOp, container);
+  containing.appendChild(conButOp);
   h4.appendChild(backwards);
   h4.appendChild(titleBlue);
   h4.appendChild(titleBlack);
