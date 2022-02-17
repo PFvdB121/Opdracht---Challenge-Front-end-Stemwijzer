@@ -3,151 +3,175 @@ var parties = [{
     "secular": true,
     "size": 33,
     "long": "Volkspartij voor Vrijheid en Democratie",
-    "points": 0
+    "points": 0,
+    "image": "VVD.png"
   },
   {
     "name": "CDA",
     "secular": false,
     "size": 19,
     "long": "Christen Democratisch Appel",
-    "points": 0
+    "points": 0,
+    "image": "CDA.png"
   },
   {
     "name": "PVV",
     "secular": true,
     "size": 20,
     "long": "Partij voor de Vrijheid",
-    "points": 0
+    "points": 0,
+    "image": "PVV.png"
   },
   {
     "name": "D66",
     "secular": true,
     "size": 19,
     "long": "Democratie 66",
-    "points": 0
+    "points": 0,
+    "image": "D66.png"
   },
   {
     "name": "GroenLinks",
     "secular": true,
     "size": 14,
-    "points": 0
+    "points": 0,
+    "image": "GroenLinks.png"
   },
   {
     "name": "SP",
     "secular": true,
     "size": 14,
     "long": "Socialistische Partij",
-    "points": 0
+    "points": 0,
+    "image": "SP.png"
   },
   {
     "name": "PvdA",
     "secular": true,
     "size": 9,
     "long": "Partij van de Arbeid",
-    "points": 0
+    "points": 0,
+    "image": "PvdA.png"
   },
   {
     "name": "ChristenUnie",
     "secular": false,
     "size": 5,
-    "points": 0
+    "points": 0,
+    "image": "ChristenUnie.png"
   },
   {
     "name": "Partij voor de Dieren",
     "secular": true,
     "size": 33,
-    "points": 0
+    "points": 0,
+    "image": "PVDD.png"
   },
   {
     "name": "SGP",
     "secular": false,
     "size": 33,
     "long": "Staatkundig Gerefomeerde Partij",
-    "points": 0
+    "points": 0,
+    "image": "SGP.png"
   },
   {
     "name": "DENK",
     "secular": true,
     "size": 3,
-    "points": 0
+    "points": 0,
+    "image": "DENK.png"
   },
   {
     "name": "Forum voor Democratie",
     "secular": true,
     "size": 2,
-    "points": 0
+    "points": 0,
+    "image": "FVD.png"
   },
   {
     "name": "Lokaal in de Kamer",
     "secular": true,
     "size": 0,
-    "points": 0
+    "points": 0,
+    "image": "LIDK.png"
   },
   {
     "name": "OndernemersPartij",
     "secular": true,
     "size": 0,
-    "points": 0
+    "points": 0,
+    "image": "OP.png"
   },
   {
     "name": "VNL",
     "secular": true,
     "size": 0,
-    "points": 0
+    "points": 0,
+    "image": "VNL.png"
   },
   {
     "name": "Nieuwe Wegen",
     "secular": true,
     "size": 0,
-    "points": 0
+    "points": 0,
+    "image": "NW.png"
   },
   {
     "name": "De Burger Beweging",
     "secular": true,
     "size": 0,
-    "points": 0
+    "points": 0,
+    "image": "DBB.png"
   },
   {
     "name": "Piratenpartij",
     "secular": true,
     "size": 0,
-    "points": 0
+    "points": 0,
+    "image": "PP.png"
   },
   {
     "name": "Artikel 1",
     "secular": true,
     "size": 0,
-    "points": 0
+    "points": 0,
+    "image": "BIJ1.png"
   },
   {
     "name": "Libertarische Partij",
     "secular": true,
     "size": 0,
-    "points": 0
+    "points": 0,
+    "image": "LP.png"
   },
   {
     "name": "50Plus",
     "secular": true,
     "size": 2,
-    "points": 0
+    "points": 0,
+    "image": "50Plus.png"
   },
   {
     "name": "Vrijzinnige Partij",
     "secular": true,
     "size": 0,
-    "points": 0
+    "points": 0,
+    "image": "VP.png"
   },
   {
     "name": "Libertarische Partij",
     "secular": true,
     "size": 0,
-    "points": 0
+    "points": 0,
+    "image": "LP.png"
   },
   {
     "name": "Niet Stemmers",
     "secular": true,
     "size": 0,
-    "points": 0
+    "points": 0,
+    "image": "NS.png"
   }
 
 ];
@@ -3755,9 +3779,7 @@ var subjects = [{
 ];
 
 
-
-var array;
-var colBut = ["w3-green w3-text-black", "w3-red w3-text-black", "w3-yellow", "w3-light-grey"];
+var colBut = ["w3-green w3-text-black", "w3-red w3-text-black", "w3-yellow", ""];
 var importance = [];
 for (var i = 0; i < subjects.length; i++) {
   importance.push({"title":subjects[i]["title"], "opinion": "test", "show": false});
@@ -3771,15 +3793,18 @@ var agree = document.createElement("button");
 agree.innerText = "Eens";
 agree.addEventListener("click", function(){ con(questionCount, "pro")});
 agree.value = "pro";
-agree.style.backgroundColor = colBut[0];
 
-var arrow = document.createElement("i");
-arrow.className = "fas fa-arrow-left w3-round-xxlarge w3-text-black";
+var agreeOp = document.createElement("button");
+agreeOp.innerText = "meningen eens";
+agreeOp.addEventListener("click", function(){ OP(questionCount, "pro")});
+
+var arrowL = document.createElement("i");
+arrowL.className = "fas fa-arrow-left w3-round-xxlarge w3-text-black";
 
 var backwards = document.createElement("button");
 backwards.addEventListener("click", function(){ con(questionCount, "backwards")});
 backwards.id = "backwards";
-backwards.appendChild(arrow);
+backwards.appendChild(arrowL);
 
 var bar = document.createElement("div");
 bar.id = "bar";
@@ -3787,17 +3812,26 @@ bar.className = "w3-blue";
 
 var BG = document.getElementById("BG");
 
-var buttons = document.createElement("section");
+var buttons = document.createElement("div");
 buttons.id = "buttonsP";
 
+var conButOp = document.createElement("span");
+conButOp.style.margin = "3vh";
+conButOp.style.width = "10vw";
+conButOp.className = "w3-display-topright";
+
 var containing = document.createElement("div");
+containing.style.height = "70vh";
 var container = document.getElementById("container")
 
 var disAgree = document.createElement("button");
 disAgree.innerText = "Oneens";
 disAgree.addEventListener("click", function(){ con(questionCount, "contra")});
 disAgree.value = "contra";
-disAgree.style.backgroundColor = colBut[1];
+
+var disAgreeOp = document.createElement("button");
+disAgreeOp.innerText = "meningen oneens";
+disAgreeOp.addEventListener("click", function(){ OP(questionCount, "contra")});
 
 var h4 = document.createElement("h4");
 h4.className = "w3-text-blue bold";
@@ -3810,7 +3844,6 @@ var important = document.getElementsByClassName("important");
 var skip = document.createElement("button");
 skip.addEventListener("click", function(){ con(questionCount, null)});
 skip.value = null;
-skip.style.backgroundColor = colBut[3];
 
 var Start = document.getElementById("Start");
 var starting = document.getElementById("starting");
@@ -3824,25 +3857,42 @@ var undecided = document.createElement("button");
 undecided.innerText = "Geen van beide";
 undecided.addEventListener("click", function(){ con(questionCount, "none")});
 undecided.value = "none";
-undecided.style.backgroundColor = colBut[2];
 
+var undecidedOp = document.createElement("button");
+undecidedOp.innerText = "meningen geen van beide";
+undecidedOp.addEventListener("click", function(){ OP(questionCount, "none")});
 
-
+var array;
 let arrayNum;
+var arrowR;
+var backOp;
 var barVote;
 var barVoteProgress;
 const bigParty = 15;
 var buttonsP;
 var checkbox;
 var checkingOut;
+var close;
+var closeBar;
+var closeCross;
+var div;
 var goingOn = null;
+var h3;
+var img;
 var keys;
 var label;
 var list;
 var listPart;
 var marker;
 var maxPar;
+const necAns = 15;
+var opinionsContainer;
+var opinions;
+var opinion;
+var per;
 var questionCount = 0;
+var realImportance;
+var span;
 var sumV = 0;
 var under = null;
 var values;
@@ -3862,9 +3912,13 @@ function start(){
   BG.style.backgroundImage = "none";
   document.body.insertBefore(bar, container);
   document.body.insertBefore(h4, container);
+  document.body.insertBefore(conButOp, container);
   h4.appendChild(backwards);
   h4.appendChild(titleBlue);
   h4.appendChild(titleBlack);
+  conButOp.appendChild(agreeOp);
+  conButOp.appendChild(disAgreeOp);
+  conButOp.appendChild(undecidedOp);
   containing.appendChild(buttons);
   buttons.appendChild(agree);
   buttons.appendChild(disAgree);
@@ -3887,81 +3941,106 @@ function con(question, value = null){
     if (questionCount < subjects.length) {
       headLine[0].innerText = `${questionCount + 1}. ${subjects[questionCount]["title"]}`;
       headLine[1].innerText = subjects[questionCount]["statement"];
+      buttons.className = "w3-display-bottommiddle";
       skip.innerText = "Deze vraag overslaan";
+      for (var i = 0; i < buttonsP.length; i++) {
+        buttonsP[i].style.margin = "0 0.1vw";
+        buttonsP[i].style.boxSizing = "content-box";
+        buttonsP[i].style.padding = "2px 5px";
+        buttonsP[i].className += " bold w3-round-xxlarge";
+      }
+      arrowR = document.createElement("i");
+      arrowR.className = "fas fa-arrow-right";
+      skip.appendChild(arrowR);
+    }
+    else if (questionCount == subjects.length + 2){
+      matches();
     }
     else if (questionCount >= subjects.length){
+      buttons.className = "";
+      skip.className = `${colBut[3]} bold`;
+      realImportance = importance.filter(function(x){return x.opinion != null})
+      agree.style.display = "none";
+      disAgree.style.display = "none";
+      undecided.style.display = "none";
+      skip.innerText = "volgende stap";
+      skip.className = colBut[3];
       if (under == null){
         under = document.createElement("div");
         under.id = "underQuestions";
         under.style.backgroundColor = "Grey";
         containing.appendChild(under);
       }
-      if (questionCount == subjects.length) {
-        if (value == "backwards") {
-          goingOn.remove();
-          goingOn = null;
-        }
-        array = showing;
-        headLine[0].innerText = "Welke partijen wil je meenemen in het resultaat?"
-        headLine[1].innerText = "Kies of alleen de grote, alleen de seculiere, of alleen de grote seculiere parijen getoond worden";
-        agree.style.display = "none";
-        disAgree.style.display = "none";
-        undecided.style.display = "none";
+      if (realImportance.length >= necAns) {
         skip.style.display = "inline-block";
-        skip.innerText = "volgende stap";
-      }
-      else if (questionCount == subjects.length + 1){
-        if (value != "backwards") {
-          for (var i = 0; i < showing.length; i++) {
-            checkingOut = document.getElementById(showing[i]["title"]);
-            console.log(checkingOut.checked);
-            showing[FISP(checkingOut.value)]["show"] = checkingOut.checked;
-          }
+        if (questionCount == subjects.length) {
+          headLine[0].innerText = "Zijn er onderwerpen die u extra belangrijk vindt?"
+          headLine[1].innerText = "Aangevinkte stellingen tellen extra mee bij het berekenen van het resultaat.";
+          array = realImportance;
         }
-        skip.style.display = "none";
-        headLine[0].innerText = "Zijn er onderwerpen die u extra belangrijk vindt?"
-        headLine[1].innerText = "Aangevinkte stellingen tellen extra mee bij het berekenen van het resultaat.";
-        goingOn = document.createElement("button");
-        goingOn.id = "goingOn";
-        goingOn.addEventListener("click", matches);
-        goingOn.innerText = "volgende stap"
-        goingOn.className = colBut[3];
-        buttons.appendChild(goingOn);
-        array = importance;
+        else if (questionCount == subjects.length + 1){
+          if (value != "backwards") {
+            for (var i = 0; i < realImportance.length; i++) {
+              checkingOut = document.getElementById(realImportance[i]["title"]);
+              console.log(checkingOut.checked);
+              realImportance[FIRP(checkingOut.value)]["show"] = checkingOut.checked;
+            }
+          }
+          array = showing;
+          headLine[0].innerText = "Welke partijen wil je meenemen in het resultaat?"
+          headLine[1].innerText = "Kies of alleen de grote, alleen de seculiere, of alleen de grote seculiere parijen getoond worden"; 
+        }
+        under.innerText = "";
+        for (var i = 0; i < array.length; i++) {
+          marker = document.createElement("div");
+          marker.style.display = "inline-block";
+          marker.style.width = "22vw";
+          marker.className = "w3-border";
+          under.appendChild(marker);
+          checkbox = document.createElement("input");
+          marker.appendChild(checkbox);
+          checkbox.id = array[i]["title"];
+          checkbox.type = "checkbox";
+          checkbox.className = "important";
+          checkbox.value = array[i]["title"];
+          checkbox.checked = array[i]["show"];
+          label = document.createElement("label");
+          marker.appendChild(label);
+          label.for = array[i]["title"];
+          label.innerText = array[i]["title"];
+        }
       }
-      under.innerText = "";
-      for (var i = 0; i < array.length; i++) {
-        marker = document.createElement("div");
-        marker.style.display = "inline-block";
-        marker.style.width = "22vw";
-        marker.className = "w3-border-bottom";
-        under.appendChild(marker);
-        checkbox = document.createElement("input");
-        marker.appendChild(checkbox);
-        checkbox.id = array[i]["title"];
-        checkbox.type = "checkbox";
-        checkbox.className = "important";
-        checkbox.value = array[i]["title"];
-        checkbox.checked = array[i]["show"];
-        label = document.createElement("label");
-        marker.appendChild(label);
-        label.for = array[i]["title"];
-        label.innerText = array[i]["title"];
+      else{
+        skip.style.display = "none";
+        headLine[0].innerText = `Niet genoeg antwoorden`
+        headLine[1].innerText = `Je moet minimaal ${necAns} vragen beantwoorden`;
       }
     }
   }
 }
 
 function matches(){
+  for (var i = 0; i < showing.length; i++) {
+    checkingOut = document.getElementById(showing[i]["title"]);
+    console.log(checkingOut.checked);
+    showing[FISP(checkingOut.value)]["show"] = checkingOut.checked;
+  }
   sumV = 0;
-  bar.style.width = "100vw";
+  headLine[0].innerText = "Eind resultaat"
+  headLine[1].innerText = "";
   checkImportance();
-  goingOn.remove();
-  questionCount++;
+  skip.style.display = "none";
   under.innerText = "";
+  div = document.createElement("div");
+  div.style.marginBottom = "5vh";
+  under.appendChild(div);
+  h3 = document.createElement("h3");
+  h3.innerText = "Beste partijen";
+  h3.style.fontWeight = "bold";
+  div.appendChild(h3);
   list = document.createElement("ul");
-  list.className = "w3-ul"
-  under.appendChild(list);
+  list.className = "w3-ul";
+  div.appendChild(list);
   selPar = parties;
   if (showing[0]["show"] == true) {
     selPar = selPar.filter(function(x){return x.size >= bigParty})
@@ -3969,25 +4048,83 @@ function matches(){
   if (showing[1]["show"] == true) {
     selPar = selPar.filter(function(x){return x.secular == true})
   }
+  selPar.sort(function(value1, value2){return value2.points - value1.points})
   for (var i = 0; i < selPar.length; i++) {
     listPart = document.createElement("li");
     list.appendChild(listPart);
-    maxPar = selPar.findIndex(function(bigPar){
-      return bigPar.points == Math.max.apply(Math, selPar.map(function(x){ return x.points; }));
-    })
-    listPart.innerText = `${selPar[maxPar]["name"]}: ${(selPar[maxPar]["points"] / sumV * 100).toFixed(2)}%`;
-    selPar[maxPar]["points"] = -1;
+    per = (selPar[i]["points"] / sumV * 100).toFixed(2);
+    if (selPar[i]["image"] != null) {
+
+    }
+    img = document.createElement("img");
+    img.src = `images/${selPar[i]["image"]}`;
+    img.alt = selPar[i]["name"];
+    img.style.width = "8vw";
+    listPart.appendChild(img);
+    barVote = document.createElement("span");
+    barVote.style.display = "inline-block";
+    barVote.className = colBut[2];
+    barVote.style.width = "30vw";
+    barVote.style.height = "4vh";
+    barVote.style.marginLeft = "2vw";
+    barVote.style.position = "relative";
+    listPart.appendChild(barVote);
+    barVoteProgress = document.createElement("span");
+    barVoteProgress.style.display = "inline-block";
+    barVoteProgress.className = colBut[0];
+    barVoteProgress.style.width = `${per}%`;
+    barVoteProgress.style.height = "100%";
+    barVoteProgress.style.position = "absolute";
+    barVoteProgress.style.left = "0";
+    barVoteProgress.style.top = "0";
+    barVote.appendChild(barVoteProgress);
+    span = document.createElement("span");
+    span.innerText = `${(selPar[i]["points"] / sumV * 100).toFixed(2)}%`;
+    listPart.appendChild(span);
+    div = document.createElement("div");
+    div.innerText = `${selPar[i]["name"]}`;
+    div.className = "bold";
+    div.style.paddingLeft = "10%";
+    listPart.appendChild(div);
   }
   for (var i = 0; i < parties.length; i++) {
     parties[i]["points"] = 0;
   }
+
+  div = document.createElement("div");
+  div.className = "w3-white"
+  under.appendChild(div);
+  h3 = document.createElement("h3");
+  h3.innerText = "Meningen over elke vraag";
+  h3.style.fontWeight = "bold";
+  div.appendChild(h3);
+  list = document.createElement("ul");
+  list.className = "w3-ul";
+  div.appendChild(list);
+  for (var i = 0; i < realImportance.length; i++) {
+    listPart = document.createElement("li");
+    list.appendChild(listPart);
+    listPart.innerText = `${realImportance[i]["title"]}: `;
+    
+    if (realImportance[i]["opinion"] == "pro") {
+      listPart.innerText += ` Eens`;
+    }
+    else if (realImportance[i]["opinion"] == "contra") {
+      listPart.innerText += ` oneens`;
+    }
+    else if (realImportance[i]["opinion"] == "none") {
+      listPart.innerText += ` Geen van beide`;
+    }
+    
+    if (realImportance[i]["show"] == true) {
+      listPart.innerText += `  extra belangrijk`;
+    }
+  }
 }
 
 function checkImportance(){
-  for(var i = 0; i < importance.length; i++){
-    checkingOut = document.getElementById(importance[i]["title"]);
-    importance[i]["show"] = checkingOut.checked;
-    if (checkingOut.checked == true){
+  for(var i = 0; i < realImportance.length; i++){
+    if (realImportance[i]["show"] == true){
       countingPoints(2, i);
     }
     else{
@@ -3998,15 +4135,19 @@ function checkImportance(){
 
 function countingPoints(countingUp, index){
   sumV += countingUp;
-  selPar = subjects[FTS(importance[index]["title"])]["parties"].filter(function(x){return x.position == importance[index]["opinion"]});
+  selPar = subjects[FTS(realImportance[index]["title"])]["parties"].filter(function(x){return x.position == realImportance[index]["opinion"]});
+  console.log(selPar);
   for (var i = 0; i < selPar.length; i++) {
+    console.log(i)
+    console.log(selPar[i]["name"])
+    console.log(FIP(selPar[i]["name"]))
     parties[FIP(selPar[i]["name"])]["points"] += countingUp;
   }
 }
 
 function points(question, value){
   if (value != "backwards"){
-    if (value != null) {
+    if (question < subjects.length) {
       importance[question]["opinion"] = value;
     }
     question++;
@@ -4019,13 +4160,15 @@ function points(question, value){
       under.innerText = "";
       if (question == subjects.length) {
         document.getElementById("underQuestions").remove();
-        if (goingOn != null) {
+        /*if (goingOn != null) {
           document.getElementById("goingOn").remove();
-        }
+          goingOn = null
+        }*/
         under = null
         agree.style.display="inline-block";
         disAgree.style.display="inline-block";
         undecided.style.display="inline-block";
+        skip.style.display="inline-block";
       }
     }
     question--;
@@ -4053,6 +4196,7 @@ function startScreen(){
   titleBlack.remove();
   bar.remove();
   h4.remove();
+  conButOp.remove();
   head.remove();
   document.getElementById("top").insertBefore(head, document.getElementById("buttons"));
   BG.style.backgroundImage = 'url("images/stemwijzer.png")';
@@ -4081,4 +4225,51 @@ function FISP(SP){
   return showing.findIndex(function(titleS){
     return titleS.title == SP;
   })
+}
+function FIRP(RP){
+  return realImportance.findIndex(function(titleS){
+    return titleS.title == RP;
+  })
+}
+
+function OP(question, value){
+  backOp = document.createElement("div");
+  backOp.style.position = "absolute";
+  backOp.style.top = "0";
+  backOp.style.left = "0";
+  backOp.style.width = "100%";
+  backOp.style.height = "100%";
+  backOp.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+  document.body.appendChild(backOp);
+  opinionsContainer = document.createElement("div");
+  opinionsContainer.style.width = "20vw";
+  opinionsContainer.className = "w3-display-middle w3-white";
+  backOp.appendChild(opinionsContainer);
+  closeBar = document.createElement("div");
+  closeBar.className = "w3-light-grey";
+  closeBar.textAlign = "right";
+  opinionsContainer.appendChild(closeBar);
+  close = document.createElement("button");
+  close.addEventListener("click", closeOP);
+  close.style.display = "block";
+  close.style.marginLeft = "auto";
+  closeBar.appendChild(close);
+  closeCross = document.createElement("i");
+  closeCross.className = "fa fa-close";
+  close.appendChild(closeCross);
+  selPar = subjects[question]["parties"].filter(function(x){ return x.position == value});
+  opinions = document.createElement("ul");
+  opinions.className = "w3-ul";
+  opinions.style.height = "70vh";
+  opinions.style.overflow = "auto";
+  opinionsContainer.appendChild(opinions);
+  for (var i = 0; i < selPar.length; i++) {
+    opinion = document.createElement("li");
+    opinion.innerText = `${selPar[i]["name"]}: \n ${selPar[i]["opinion"]}`;
+    opinions.appendChild(opinion);
+  }
+}
+
+function closeOP(){
+  backOp.remove(); 
 }
