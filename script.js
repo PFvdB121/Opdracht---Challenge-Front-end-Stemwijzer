@@ -3779,12 +3779,14 @@ var subjects = [{
 ];
 
 
+
 var colBut = ["w3-green w3-text-black", "w3-red w3-text-black", "w3-yellow", ""];
+
 var importance = [];
 for (var i = 0; i < subjects.length; i++) {
   importance.push({"title":subjects[i]["title"], "opinion": "test", "show": false});
 }
-var selPar = [];
+
 var showing = [{"title": "Toon alleen grote partijen", "show": false}, {"title": "Toon alleen seculiere partijen", "show": false}]
 
 
@@ -3819,7 +3821,6 @@ buttons.id = "buttonsP";
 
 var conButOp = document.createElement("span");
 conButOp.style.width = "10vw";
-//conButOp.style.marginBottom = "10vh";
 conButOp.className = "w3-display-bottomleft";
 
 var containing = document.createElement("div");
@@ -3850,6 +3851,8 @@ skip.addEventListener("click", function(){ con(questionCount, null)});
 skip.value = null;
 
 var Start = document.getElementById("Start");
+Start.addEventListener("click", function(){start()});
+
 var starting = document.getElementById("starting");
 
 var titleBlue = document.getElementById("titleBlue");
@@ -3868,13 +3871,19 @@ undecidedOp.className = colBut[2];
 undecidedOp.style.width = "100%";
 undecidedOp.addEventListener("click", function(){ OP(questionCount, "none")});
 
+
+
+const bigParty = 15;
+const necAns = 15;
+
+
+
 var array;
 let arrayNum;
 var arrowR;
 var backOp;
 var barVote;
 var barVoteProgress;
-const bigParty = 15;
 var buttonsP;
 var checkbox;
 var checkingOut;
@@ -3882,7 +3891,6 @@ var close;
 var closeBar;
 var closeCross;
 var div;
-var goingOn = null;
 var h3;
 var img;
 var keys;
@@ -3891,13 +3899,13 @@ var list;
 var listPart;
 var marker;
 var maxPar;
-const necAns = 15;
 var opinionsContainer;
 var opinions;
 var opinion;
 var per;
 var questionCount = 0;
 var realImportance;
+var selPar = [];
 var span;
 var sumV = 0;
 var under = null;
@@ -3905,34 +3913,27 @@ var values;
 
 
 
-Start.addEventListener("click", function(){start()});
+function checkImportance(){
+  for(var i = 0; i < realImportance.length; i++){
+    if (realImportance[i]["show"] == true){
+      countingPoints(2, i);
+    }
+    else{
+      countingPoints(1, i);
+    }
+  }
+}
 
-function start(){
-  titleBlue.remove();
-  titleBlack.remove();
-  head.remove();
-  container.appendChild(containing);
-  containing.appendChild(head);
-  headLine[2].innerText = "";
-  starting.style.display = "none";
-  BG.style.backgroundImage = "none";
-  document.body.insertBefore(bar, container);
-  document.body.insertBefore(h4, container);
-  containing.appendChild(conButOp);
-  h4.appendChild(backwards);
-  h4.appendChild(titleBlue);
-  h4.appendChild(titleBlack);
-  conButOp.appendChild(agreeOp);
-  conButOp.appendChild(disAgreeOp);
-  conButOp.appendChild(undecidedOp);
-  containing.appendChild(buttons);
-  buttons.appendChild(agree);
-  buttons.appendChild(disAgree);
-  buttons.appendChild(undecided);
-  buttons.appendChild(skip);
-  buttonsP = document.querySelectorAll("#buttonsP>*");
-  coloringB(0);
-  con(questionCount, "start");
+function coloringB(question, value = "test"){
+  for (var i = 0; i < buttonsP.length; i++) {
+    console.log(value);
+    if (`${buttonsP[i].value}` == `${importance[question]["opinion"]}`) {
+      buttonsP[i].className = "w3-blue w3-text-black";
+    }
+    else{
+      buttonsP[i].className = colBut[i];
+    }
+  }
 }
 
 function con(question, value = null){
@@ -3949,6 +3950,7 @@ function con(question, value = null){
       headLine[1].innerText = subjects[questionCount]["statement"];
       buttons.className = "w3-display-bottommiddle";
       skip.innerText = "Deze vraag overslaan";
+      conButOp.style.display = "inline";
       for (var i = 0; i < buttonsP.length; i++) {
         buttonsP[i].style.margin = "0 0.1vw";
         buttonsP[i].style.boxSizing = "content-box";
@@ -3963,12 +3965,13 @@ function con(question, value = null){
       matches();
     }
     else if (questionCount >= subjects.length){
+      conButOp.style.display = "none";
       buttons.className = "";
       skip.className = `${colBut[3]} bold`;
       realImportance = importance.filter(function(x){return x.opinion != null})
-      agree.style.display = "none";
-      disAgree.style.display = "none";
-      undecided.style.display = "none";
+      for (var i = 0; i < buttonsP.length - 1; i++) {
+        buttonsP[i].style.display = "none";
+      }
       skip.innerText = "volgende stap";
       skip.className = colBut[3];
       if (under == null){
@@ -4025,6 +4028,18 @@ function con(question, value = null){
   }
 }
 
+function countingPoints(countingUp, index){
+  sumV += countingUp;
+  selPar = subjects[FTS(realImportance[index]["title"])]["parties"].filter(function(x){return x.position == realImportance[index]["opinion"]});
+  console.log(selPar);
+  for (var i = 0; i < selPar.length; i++) {
+    console.log(i)
+    console.log(selPar[i]["name"])
+    console.log(FIP(selPar[i]["name"]))
+    parties[FIP(selPar[i]["name"])]["points"] += countingUp;
+  }
+}
+
 function matches(){
   for (var i = 0; i < showing.length; i++) {
     checkingOut = document.getElementById(showing[i]["title"]);
@@ -4059,9 +4074,6 @@ function matches(){
     listPart = document.createElement("li");
     list.appendChild(listPart);
     per = (selPar[i]["points"] / sumV * 100).toFixed(2);
-    if (selPar[i]["image"] != null) {
-
-    }
     img = document.createElement("img");
     img.src = `images/${selPar[i]["image"]}`;
     img.alt = selPar[i]["name"];
@@ -4128,29 +4140,6 @@ function matches(){
   }
 }
 
-function checkImportance(){
-  for(var i = 0; i < realImportance.length; i++){
-    if (realImportance[i]["show"] == true){
-      countingPoints(2, i);
-    }
-    else{
-      countingPoints(1, i);
-    }
-  }
-}
-
-function countingPoints(countingUp, index){
-  sumV += countingUp;
-  selPar = subjects[FTS(realImportance[index]["title"])]["parties"].filter(function(x){return x.position == realImportance[index]["opinion"]});
-  console.log(selPar);
-  for (var i = 0; i < selPar.length; i++) {
-    console.log(i)
-    console.log(selPar[i]["name"])
-    console.log(FIP(selPar[i]["name"]))
-    parties[FIP(selPar[i]["name"])]["points"] += countingUp;
-  }
-}
-
 function points(question, value){
   if (value != "backwards"){
     if (question < subjects.length) {
@@ -4166,15 +4155,10 @@ function points(question, value){
       under.innerText = "";
       if (question == subjects.length) {
         document.getElementById("underQuestions").remove();
-        /*if (goingOn != null) {
-          document.getElementById("goingOn").remove();
-          goingOn = null
-        }*/
-        under = null
-        agree.style.display="inline-block";
-        disAgree.style.display="inline-block";
-        undecided.style.display="inline-block";
-        skip.style.display="inline-block";
+        under = null;
+        for (var i = 0; i < buttonsP.length; i++) {
+          buttonsP[i].style.display = "inline-block";
+        }
       }
     }
     question--;
@@ -4185,16 +4169,32 @@ function points(question, value){
   return question;
 }
 
-function coloringB(question, value = "test"){
-  for (var i = 0; i < buttonsP.length; i++) {
-    console.log(value);
-    if (`${buttonsP[i].value}` == `${importance[question]["opinion"]}`) {
-      buttonsP[i].className = "w3-blue w3-text-black";
-    }
-    else{
-      buttonsP[i].className = colBut[i];
-    }
-  }
+function start(){
+  titleBlue.remove();
+  titleBlack.remove();
+  head.remove();
+  container.appendChild(containing);
+  containing.appendChild(head);
+  headLine[2].innerText = "";
+  starting.style.display = "none";
+  BG.style.backgroundImage = "none";
+  document.body.insertBefore(bar, container);
+  document.body.insertBefore(h4, container);
+  containing.appendChild(conButOp);
+  h4.appendChild(backwards);
+  h4.appendChild(titleBlue);
+  h4.appendChild(titleBlack);
+  conButOp.appendChild(agreeOp);
+  conButOp.appendChild(disAgreeOp);
+  conButOp.appendChild(undecidedOp);
+  containing.appendChild(buttons);
+  buttons.appendChild(agree);
+  buttons.appendChild(disAgree);
+  buttons.appendChild(undecided);
+  buttons.appendChild(skip);
+  buttonsP = document.querySelectorAll("#buttonsP>*");
+  coloringB(0);
+  con(questionCount, "start");
 }
 
 function startScreen(){
