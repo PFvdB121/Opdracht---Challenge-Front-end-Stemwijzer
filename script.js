@@ -1,3 +1,4 @@
+//Hierin staan de partijen
 var parties = [{
     "name": "VVD",
     "secular": true,
@@ -175,7 +176,7 @@ var parties = [{
   }
 
 ];
-
+//Hierin staan de vragen en de meningen van de partijen
 var subjects = [{
     "title": "Bindend referendum",
     "statement": "Er moet een bindend referendum komen, waarmee burgers door het parlement aangenomen wetten kunnen tegenhouden.",
@@ -3780,91 +3781,114 @@ var subjects = [{
 
 
 
+//Hiermee krijgen de knoppen kleuren
 var colBut = ["w3-green w3-text-black", "w3-red w3-text-black", "w3-yellow", ""];
 
+//Deze array wordt gebruikt om aan te tonen of een stelling extra belangrijk is, en om jou positie erop op te slaan
 var importance = [];
 for (var i = 0; i < subjects.length; i++) {
   importance.push({"title":subjects[i]["title"], "opinion": "test", "show": false});
 }
 
+//Hiermee kan je aangeven of alleen grote en/of seculiere partijen wordt getoond
 var showing = [{"title": "Toon alleen grote partijen", "show": false}, {"title": "Toon alleen seculiere partijen", "show": false}]
 
 
 
+//Met deze knop geef je aan of je het eens bent met een stelling
 var agree = document.createElement("button");
 agree.innerText = "Eens";
 agree.addEventListener("click", function(){ con(questionCount, "pro")});
 agree.value = "pro";
 
+//Meet deze knop kan je de precieze meningen van de partijen tonen over de stelling die het ermee eens zijn
 var agreeOp = document.createElement("button");
 agreeOp.innerText = "meningen eens";
 agreeOp.className = colBut[0];
 agreeOp.style.width = "100%";
 agreeOp.addEventListener("click", function(){ OP(questionCount, "pro")});
 
+//Een pijl naar links wordt gemaakt
 var arrowL = document.createElement("i");
 arrowL.className = "fas fa-arrow-left w3-round-xxlarge w3-text-black";
 
+//Een knop om terug te gaan naar de vorige pagina wordt gemaakt
 var backwards = document.createElement("button");
 backwards.addEventListener("click", function(){ con(questionCount, "backwards")});
 backwards.id = "backwards";
 backwards.appendChild(arrowL);
 
+//Hiiermee wordt een balk gemaakt waarmee er wordt bijgehouden hoe veer je bent in de vraag
 var bar = document.createElement("div");
 bar.id = "bar";
 bar.className = "w3-blue";
 
+//De achtergrond van de start pagina wordt geselecteerd
 var BG = document.getElementById("BG");
 
+//Een container voor de knoppen worden gemaakt waarmee jij jou meningen aangeeft
 var buttons = document.createElement("div");
 buttons.id = "buttonsP";
 
+//Een container wordt gemaakt voor de knoppen waarmee jij de meningen ziet van de partijen over de stellingen
 var conButOp = document.createElement("span");
 conButOp.style.width = "10vw";
 conButOp.className = "w3-display-bottomleft";
 
+//Een container wordt gemaakt waarin de nieuwe elementen worden omgeslagen
 var containing = document.createElement("div");
 containing.style.height = "70vh";
 var container = document.getElementById("container")
 
+//De knop die aangeeft dat je het niet eens bent met een stelling wordt hiermee aangemaakt
 var disAgree = document.createElement("button");
 disAgree.innerText = "Oneens";
 disAgree.addEventListener("click", function(){ con(questionCount, "contra")});
 disAgree.value = "contra";
 
+//De knop waarmee je de precieze mening van de partijen ziet over de stelling wordt aangemaakt
 var disAgreeOp = document.createElement("button");
 disAgreeOp.innerText = "meningen oneens";
 disAgreeOp.className = colBut[1];
 disAgreeOp.style.width = "100%";
 disAgreeOp.addEventListener("click", function(){ OP(questionCount, "contra")});
 
+//Een h4 element die dik en blauw is wordt aangemaakt  
 var h4 = document.createElement("h4");
 h4.className = "w3-text-blue bold";
 
+//Het element met de ID head kan hiermee worden geselecteerd
 var head = document.getElementById("head");
+//Alle elementen in het element met de ID head kunnen hiermee worden geselecteerd
 var headLine = document.querySelectorAll("#head>*");
 
-var important = document.getElementsByClassName("important");
-
+//De knop waarmee je de vraag overslaat wordt hiermee aangemaakt
 var skip = document.createElement("button");
 skip.addEventListener("click", function(){ con(questionCount, null)});
 skip.value = null;
 
+//De startknop wordt hiermee geselecteerd, en daar wordt met de addEventListener ervoor gezorgdt dat de 
+//functie start wordt uitgevoerd als je op de knopt klikt
 var Start = document.getElementById("Start");
 Start.addEventListener("click", function(){start()});
 
 var starting = document.getElementById("starting");
 
+//Het element met de ID titleBlue kan hiermee worden geselecteerd
 var titleBlue = document.getElementById("titleBlue");
+//Het element met de ID titleBlack kan hiermee worden geselecteerd
 var titleBlack = document.getElementById("titleBlack");
 
+//Het element met de ID titleBlack kan hiermee worden geselecteerd
 var top = document.getElementById("top");
 
+//De knop waarmee je aangeeft dat je het niet eens of oneens bent met de mening wordt hier aangemaakt
 var undecided = document.createElement("button");
 undecided.innerText = "Geen van beide";
 undecided.addEventListener("click", function(){ con(questionCount, "none")});
 undecided.value = "none";
 
+//Met deze knop zie je de partijen die neutraal zijn over de stelling
 var undecidedOp = document.createElement("button");
 undecidedOp.innerText = "meningen geen van beide";
 undecidedOp.className = colBut[2];
@@ -3872,12 +3896,14 @@ undecidedOp.style.width = "100%";
 undecidedOp.addEventListener("click", function(){ OP(questionCount, "none")});
 
 
-
+//Er wordt hierin aangegeven wat een grote partij precies is
 const bigParty = 15;
+//De nodige hoeveelheid vragen die beantwoord moeten worden worden hierin opgeslagen
 const necAns = 15;
 
 
 
+//Er worden hier lege functies voor later gebruik aangemaakt
 var array;
 let arrayNum;
 var arrowR;
@@ -3912,7 +3938,13 @@ var under = null;
 var values;
 
 
+//De container waarin de precieze mening van de partij over de stelling wordt verwijderd
+function closeOP(){
+  backOp.remove(); 
+}
 
+//De punten voor elke vraag wordt opgeteld bij de partij waarbij hun positie overheen komen. Voor de stelling die extra belangrijk is krijgt de partij
+//waarmee hun positie overeen komt een extra punt.
 function checkImportance(){
   for(var i = 0; i < realImportance.length; i++){
     if (realImportance[i]["show"] == true){
@@ -3924,6 +3956,7 @@ function checkImportance(){
   }
 }
 
+//De knoppen worden hiermee gekleurd. Knoppen waarop je al had geklikt worden blauw.
 function coloringB(question, value = "test"){
   for (var i = 0; i < buttonsP.length; i++) {
     console.log(value);
@@ -3936,15 +3969,20 @@ function coloringB(question, value = "test"){
   }
 }
 
+//De scherm wordt heermee veranderd
 function con(question, value = null){
+  //Als je bij de eerste vraag bent en je klikt op de terugknop, dan ga je weer terug naar de startscherm
   if (question == 0 && value == "backwards"){
     startScreen();
   }
   else{
+    //Als je niet op de startknop klikt, wordt jou antwoord op de stelling opgeslagen in de array importance
     if (value != "start") {
       questionCount = points(questionCount, value);
     }
+    //Hiermee wordt dop de balk aangegeven hoe ver jij bent met de vragen
     bar.style.width = `${((questionCount + 1) / (subjects.length + 3)) * 100}vw`;
+    //Hiermee wordt de volgende stelling steeds aan jou getoond
     if (questionCount < subjects.length) {
       headLine[0].innerText = `${questionCount + 1}. ${subjects[questionCount]["title"]}`;
       headLine[1].innerText = subjects[questionCount]["statement"];
@@ -3961,33 +3999,42 @@ function con(question, value = null){
       arrowR.className = "fas fa-arrow-right";
       skip.appendChild(arrowR);
     }
+    //Als je voorbij de laatste vraag komt, wordt er aan jou getoond hoe goed elke partij bij jou past, en wat jou antwoorden waren, en of die antwoorden
+    //extra belangrijk waren
     else if (questionCount == subjects.length + 2){
       matches();
     }
+    //Als alle stellingen zijn beantwoordt, dan worden de codes hieronder uitgevoerd
     else if (questionCount >= subjects.length){
       conButOp.style.display = "none";
       buttons.className = "";
       skip.className = `${colBut[3]} bold`;
       realImportance = importance.filter(function(x){return x.opinion != null})
+      //Bijna alle knoppen worden niet meer getoond. De enige knop die nog getoond wordt, wordt gebruikt om naar de volgende vraag te gaan.
       for (var i = 0; i < buttonsP.length - 1; i++) {
         buttonsP[i].style.display = "none";
       }
       skip.innerText = "volgende stap";
       skip.className = colBut[3];
+      //Als de container die in de variabele under wordt aangemaakt nog niet bestaat, wordt die aangemaakt
       if (under == null){
         under = document.createElement("div");
         under.id = "underQuestions";
         under.style.backgroundColor = "Grey";
         containing.appendChild(under);
       }
+      //in  moet de nodige hoeveelheid vragen beantwoord hebben om naar de pagina na de laatste stelling te gaan
       if (realImportance.length >= necAns) {
         skip.style.display = "inline-block";
+        //Bij de 2 na laatste vraag moet je aangeven welke stellingen je extra belangrijk vind
         if (questionCount == subjects.length) {
           headLine[0].innerText = "Zijn er onderwerpen die u extra belangrijk vindt?"
           headLine[1].innerText = "Aangevinkte stellingen tellen extra mee bij het berekenen van het resultaat.";
           array = realImportance;
         }
+        //In de 1 na laatste vraag moet je aangeven of je alleen de grote en/of seculiere partijen wilt zien
         else if (questionCount == subjects.length + 1){
+          //Als je niet terugkwam van de eindpagina, werden jou antwoorden van de vorige pagina opgeslagen in de array realImportance
           if (value != "backwards") {
             for (var i = 0; i < realImportance.length; i++) {
               checkingOut = document.getElementById(realImportance[i]["title"]);
@@ -3999,7 +4046,9 @@ function con(question, value = null){
           headLine[0].innerText = "Welke partijen wil je meenemen in het resultaat?"
           headLine[1].innerText = "Kies of alleen de grote, alleen de seculiere, of alleen de grote seculiere parijen getoond worden"; 
         }
+        //De container die is aangemaakt in de variabele under wordt geleegd
         under.innerText = "";
+        //Hierin worden checkboxen aangemaakt waarmee jij de 1 en 2 na laatste vragen beantwoord. Checkboxen die je al had ingevuld blijven zo.
         for (var i = 0; i < array.length; i++) {
           marker = document.createElement("div");
           marker.style.display = "inline-block";
@@ -4010,7 +4059,6 @@ function con(question, value = null){
           marker.appendChild(checkbox);
           checkbox.id = array[i]["title"];
           checkbox.type = "checkbox";
-          checkbox.className = "important";
           checkbox.value = array[i]["title"];
           checkbox.checked = array[i]["show"];
           label = document.createElement("label");
@@ -4019,6 +4067,7 @@ function con(question, value = null){
           label.innerText = array[i]["title"];
         }
       }
+      //Wanneer je minder dan de nodige hoeveelheid vragen hebt beantwoordt, dan wordt er aangegeven dat je meer vragen moet beantwoorden
       else{
         skip.style.display = "none";
         headLine[0].innerText = `Niet genoeg antwoorden`
@@ -4028,6 +4077,8 @@ function con(question, value = null){
   }
 }
 
+//De totale hoeveelheid punten die elke partij kan hebben wordt opgeteld, en de partij waarbij de positie van de geselecteerd stelling overeenkomt met
+//degene die jij had ingevuld wordt opgeteld
 function countingPoints(countingUp, index){
   sumV += countingUp;
   selPar = subjects[FTS(realImportance[index]["title"])]["parties"].filter(function(x){return x.position == realImportance[index]["opinion"]});
@@ -4040,6 +4091,36 @@ function countingPoints(countingUp, index){
   }
 }
 
+//De index van de partij waarvan de naam is aangegeven in de parameter NOP wordt opgezocht in de array parties
+function FIP(NOP){
+  return parties.findIndex(function(party){
+    return party.name == NOP
+  })
+}
+
+//De index van de titel die is aangegeven in de parameter RP wordt opgezocht in de array realImportance
+function FIRP(RP){
+  return realImportance.findIndex(function(titleS){
+    return titleS.title == RP;
+  })
+}
+
+//De index van de titel die is aangegeven in de parameter SP wordt opgezocht in de array showing
+function FISP(SP){
+  return showing.findIndex(function(titleS){
+    return titleS.title == SP;
+  })
+}
+
+//De index van de titel van een vraag die is aangegeven in de parameter TITL wordt opgezocht in de array subjects
+function FTS(TITL){
+  return subjects.findIndex(function(titleQ){
+    return titleQ.title == TITL;
+  })
+}
+
+//De eindpagina wordt getoond, met daarin de best passende partijen gebaseerd op het antwoord, en jou antwoord op elke stelling.
+//Bij elke stelling die jij aangaf dat die extra belangrijk is wordt dat ook aangegeven
 function matches(){
   for (var i = 0; i < showing.length; i++) {
     checkingOut = document.getElementById(showing[i]["title"]);
@@ -4140,104 +4221,7 @@ function matches(){
   }
 }
 
-function points(question, value){
-  if (value != "backwards"){
-    if (question < subjects.length) {
-      importance[question]["opinion"] = value;
-    }
-    question++;
-    if (question < subjects.length) {
-      coloringB(question, value)
-    }
-  }
-  else if (question > 0){
-    if (question >= subjects.length) {
-      under.innerText = "";
-      if (question == subjects.length) {
-        document.getElementById("underQuestions").remove();
-        under = null;
-        for (var i = 0; i < buttonsP.length; i++) {
-          buttonsP[i].style.display = "inline-block";
-        }
-      }
-    }
-    question--;
-    if (question < subjects.length){
-      coloringB(question, value)
-    }
-  }
-  return question;
-}
-
-function start(){
-  titleBlue.remove();
-  titleBlack.remove();
-  head.remove();
-  container.appendChild(containing);
-  containing.appendChild(head);
-  headLine[2].innerText = "";
-  starting.style.display = "none";
-  BG.style.backgroundImage = "none";
-  document.body.insertBefore(bar, container);
-  document.body.insertBefore(h4, container);
-  containing.appendChild(conButOp);
-  h4.appendChild(backwards);
-  h4.appendChild(titleBlue);
-  h4.appendChild(titleBlack);
-  conButOp.appendChild(agreeOp);
-  conButOp.appendChild(disAgreeOp);
-  conButOp.appendChild(undecidedOp);
-  containing.appendChild(buttons);
-  buttons.appendChild(agree);
-  buttons.appendChild(disAgree);
-  buttons.appendChild(undecided);
-  buttons.appendChild(skip);
-  buttonsP = document.querySelectorAll("#buttonsP>*");
-  coloringB(0);
-  con(questionCount, "start");
-}
-
-function startScreen(){
-  titleBlue.remove();
-  titleBlack.remove();
-  bar.remove();
-  h4.remove();
-  conButOp.remove();
-  head.remove();
-  document.getElementById("top").insertBefore(head, document.getElementById("buttons"));
-  BG.style.backgroundImage = 'url("images/stemwijzer.png")';
-  containing.remove();
-  starting.style.display = "block";
-  headLine[0].innerText = "";
-  headLine[0].appendChild(titleBlue);
-  headLine[0].appendChild(titleBlack);
-  headLine[1].innerText = "Tweede Kamerverkiezingen 2017";
-  headLine[2].innerText = "Test je politieke voorkeur aan de hand van 30 stellingen";
-}
-
-function FIP(NOP){
-  return parties.findIndex(function(party){
-    return party.name == NOP
-  })
-}
-
-function FTS(TITL){
-  return subjects.findIndex(function(titleQ){
-    return titleQ.title == TITL;
-  })
-}
-
-function FISP(SP){
-  return showing.findIndex(function(titleS){
-    return titleS.title == SP;
-  })
-}
-function FIRP(RP){
-  return realImportance.findIndex(function(titleS){
-    return titleS.title == RP;
-  })
-}
-
+//Er wordt een container aangemaakt waarmee jij de precieze mening ziet van elke partij
 function OP(question, value){
   backOp = document.createElement("div");
   backOp.style.position = "absolute";
@@ -4276,6 +4260,88 @@ function OP(question, value){
   }
 }
 
-function closeOP(){
-  backOp.remove(); 
+//Met deze functie ga je naar de volgende pagina, en als je langs een stelling gaat, dan wordt jou mening over de stelling opgeslagen. Als je op de
+//terugknop klikt, ga je terug naar de vorige vraag, tenzij je al bij de eerste vraag bent.
+function points(question, value){
+  //Als je niet terug gaat wordt jou antwoord opgeslagen als je een stelling beantwoordt
+  if (value != "backwards"){
+    if (question < subjects.length) {
+      importance[question]["opinion"] = value;
+    }
+    question++;
+    //De knoppen worden gekleurd als je naar een nieuwe stelling gaat
+    if (question < subjects.length) {
+      coloringB(question, value)
+    }
+  }
+  //Als je niet bij de eerste vraag terug gaat, ga je naar de vorige vraag
+  else if (question > 0){
+    if (question >= subjects.length) {
+      //Als je niet naar een stelling terug gaat, wordt de container die is gemaakt in de variabele under alleen geleegt, anders verwijderd
+      under.innerText = "";
+      if (question == subjects.length) {
+        document.getElementById("underQuestions").remove();
+        under = null;
+        //Als je terug gaat naar een stelling worden alle knoppen weer getoont
+        for (var i = 0; i < buttonsP.length; i++) {
+          buttonsP[i].style.display = "inline-block";
+        }
+      }
+    }
+    question--;
+    //De knoppen worden gekleurd als je naar de vorige stelling gaat
+    if (question < subjects.length){
+      coloringB(question, value)
+    }
+  }
+  //De variabele waarin deze functie wordt aangeroepen wordt hiermee verhoogt als je naar de volgende vraag gaat, of verlaagt als je naar de vorige gaat
+  return question;
+}
+
+//De startscherm wordt niet meer getoond en de vraagscherm wordt aangemaakt 
+function start(){
+  titleBlue.remove();
+  titleBlack.remove();
+  head.remove();
+  container.appendChild(containing);
+  containing.appendChild(head);
+  headLine[2].innerText = "";
+  starting.style.display = "none";
+  BG.style.backgroundImage = "none";
+  document.body.insertBefore(bar, container);
+  document.body.insertBefore(h4, container);
+  containing.appendChild(conButOp);
+  h4.appendChild(backwards);
+  h4.appendChild(titleBlue);
+  h4.appendChild(titleBlack);
+  conButOp.appendChild(agreeOp);
+  conButOp.appendChild(disAgreeOp);
+  conButOp.appendChild(undecidedOp);
+  containing.appendChild(buttons);
+  buttons.appendChild(agree);
+  buttons.appendChild(disAgree);
+  buttons.appendChild(undecided);
+  buttons.appendChild(skip);
+  buttonsP = document.querySelectorAll("#buttonsP>*");
+  coloringB(0);
+  con(questionCount, "start");
+}
+
+//De vraagscherm wordt verwijderd en de startscherm wordt weer getoond
+function startScreen(){
+  titleBlue.remove();
+  titleBlack.remove();
+  bar.remove();
+  h4.remove();
+  conButOp.remove();
+  head.remove();
+  document.getElementById("top").insertBefore(head, document.getElementById("buttons"));
+  BG.style.backgroundImage = 'url("images/stemwijzer.png")';
+  containing.remove();
+  starting.style.display = "block";
+  headLine[0].innerText = "";
+  headLine[0].appendChild(titleBlue);
+  headLine[0].appendChild(titleBlack);
+  headLine[1].innerText = "Tweede Kamerverkiezingen 2017";
+  headLine[2].innerText = "Test je politieke voorkeur aan de hand van 30 stellingen";
 }
